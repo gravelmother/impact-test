@@ -1,4 +1,4 @@
-package numberrangesummarizer;
+package com.meganbodley;
 
 import java.util.Collection;
 

@@ -3,6 +3,10 @@ package com.meganbodley;
 import java.util.*;
 import java.util.stream.Collectors;
 
+// ASSUMPTIONS:
+//  - duplicate values are removed
+//  - input might contain invalid items (i.e. non-integer values)
+
 public class NumberRangeSummarizerImpl implements NumberRangeSummarizer {
 
     @Override
@@ -13,6 +17,7 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer {
         // use Collection Streams
         return Arrays.stream(input.split(",")) // split comma delimited string
                 .map(String::trim) // remove any whitespace
+                .filter(s -> s.matches("-?\\d+")) // only keep Integer values
                 .map(s -> Integer.parseInt(s))// Lambda to convert String to Integer
                 .sorted() // ensure values are sorted (ascending)
                 .collect(Collectors.toList());
@@ -23,7 +28,12 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer {
         // check for null or empty input
         if (input == null || input.isEmpty()) return "";
 
-        List<Integer> values = new ArrayList<>(input);
+        // remove duplicate values
+        List<Integer> values = input.stream()
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+
 
         // ensure values are sorted (ascending)
         Collections.sort(values);
@@ -36,7 +46,7 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer {
         int prev = first;
 
         // already have the first value so start at i = 1
-        for (int i = 1; i < input.size(); i++) {
+        for (int i = 1; i < values.size(); i++) {
 
             // value at pos i
             int cur = values.get(i);
