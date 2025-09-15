@@ -4,8 +4,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 // ASSUMPTIONS:
-//  - duplicate values are removed
-//  - input might contain invalid items (i.e. non-integer values)
+//  - duplicate values are removed,
+//  - input might contain invalid items (i.e. non-integer values),
+//  - input may contain negative numbers,
+//  - input may be unsorted,
+//  - empty or null input returns an empty collection or empty string.
 
 public class NumberRangeSummarizerImpl implements NumberRangeSummarizer {
 
